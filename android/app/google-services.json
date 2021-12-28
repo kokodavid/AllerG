@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "422597317801",
+    "project_id": "allerg-ad01d",
+    "storage_bucket": "allerg-ad01d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422597317801:android:12b74d4630887015b385b8",
+        "android_client_info": {
+          "package_name": "com.allerg.allerg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422597317801-lcmlidapepb18g3t6bgjok0q38bq67ku.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.allerg.allerg",
+            "certificate_hash": "2e3c4bd77432a2e2c75c9710e0be38be9f99d075"
+          }
+        },
+        {
+          "client_id": "422597317801-n1sjvog4d6krd1q2gv473eo2shcgf8pl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6TXfSVQGUEYC-2VTb_oXtRFC7R3fuHyE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422597317801-n1sjvog4d6krd1q2gv473eo2shcgf8pl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
