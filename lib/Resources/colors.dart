@@ -9,6 +9,8 @@ class AppColors {
   static const lightGradient = Color(0xffB5CFFF);
   static const lightBlueGrad = Color(0xff9AF4F4);
   static const lightGrad = Color(0xff3E88F6);
+  static const dimColor = Color(0xffB7C1DF);
+  static const floatButton = Color(0xffFF5963);
 
 
 }
