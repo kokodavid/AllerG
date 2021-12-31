@@ -1,6 +1,6 @@
 import 'package:allerg/Screens/homepage.dart';
 import 'package:allerg/Screens/login_screen.dart';
-import 'package:allerg/repository/auth_repository.dart';
+import 'package:allerg/repository/authgroup/auth_repository.dart';
 import 'package:allerg/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,10 +33,12 @@ class AuthProvider {
         });
   }
 
-  // ignore: slash_for_doc_comments
-  /**
-   * Sign in with user and password
-   */
+  ///Sign up
+  Future<dynamic> signUp() async {
+
+  }
+
+  /// Sign in with user and password
   Future<dynamic> signInEmail() async {
 
   }
@@ -54,7 +56,7 @@ class AuthProvider {
     switch (res.status) {
       case FacebookLoginStatus.success:
         // The user is suceessfully logged in
-        // Send access token to server for validation and auth
+        // Send access token to server for validation and authgroup
         final FacebookAccessToken? accessToken = res.accessToken;
         final AuthCredential authCredential =
             FacebookAuthProvider.credential(accessToken!.token);
@@ -87,7 +89,7 @@ class AuthProvider {
     final GoogleSignInAccount? googleUser =
         await GoogleSignIn(scopes: <String>["email"]).signIn();
 
-    // Obtain the auth details from the request
+    // Obtain the authgroup details from the request
     final GoogleSignInAuthentication googleAuth =
         await googleUser!.authentication;
 

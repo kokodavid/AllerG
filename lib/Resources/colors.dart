@@ -11,6 +11,7 @@ class AppColors {
   static const lightGrad = Color(0xff3E88F6);
   static const dimColor = Color(0xffB7C1DF);
   static const floatButton = Color(0xffFF5963);
+  static const profileTile = Color(0xffEDF3FE);
 
 
 }

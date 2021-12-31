@@ -17,7 +17,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
 
-  final authCubit = AuthCubit();
+  // final authCubit = AuthCubit();
   
   @override
   Widget build(BuildContext context) {

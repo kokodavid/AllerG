@@ -14,7 +14,8 @@ class CustomEditText extends StatefulWidget {
         required this.obscurity,
         required this.icon,
         this.controller,
-        this.errorText});
+        this.errorText,
+      });
 
   @override
   _CustomEditTextState createState() => _CustomEditTextState();
