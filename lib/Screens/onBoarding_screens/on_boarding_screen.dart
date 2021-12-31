@@ -12,12 +12,14 @@ class OnBoardingScreen extends StatefulWidget {
   _OnBoardingScreenState createState() => _OnBoardingScreenState();
 }
 
-class _OnBoardingScreenState extends State<OnBoardingScreen> {
+class _OnBoardingScreenState extends State<OnBoardingScreen> with SingleTickerProviderStateMixin {
   final PageController _pageController = PageController();
   int currentIndex = 0;
   static const _kDuration = const Duration(milliseconds: 300);
   static const _kCurve = Curves.ease;
   bool _accept = true;
+
+
 
   Widget _onBoardingBtns(String text, Color color,Color textColor) {
     return Container(
@@ -25,9 +27,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         borderRadius: BorderRadius.circular(7.0),
         color: color,
           gradient: const LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              stops: [0.1, 0.5],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
               colors: [
                 AppColors.lightGradient,
                 AppColors.lightText,
@@ -51,13 +52,16 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   }
   onChangedFunction(int index) {
     setState(() {
-      currentIndex = index;
+      currentIndex += index;
+      _pageController.animateToPage(index, duration: const Duration(seconds : 1), curve: _kCurve,);
+
     });
   }
 
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
         constraints: BoxConstraints(minHeight: 15),
@@ -66,16 +70,17 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         child: Stack(
           children: [
             PageIndicatorContainer(
-              padding: EdgeInsets.only(top: 50,bottom: 260),
+              padding: EdgeInsets.only(top: 50,bottom: size.height*.25),
               indicatorColor: AppColors.primary,
               indicatorSelectorColor: AppColors.primary,
+
               align: IndicatorAlign.bottom,
-              length: 4,
+              length: 3,
               child: PageView.builder(
                   controller: _pageController,
                   onPageChanged: onChangedFunction,
-                  physics: AlwaysScrollableScrollPhysics(),
-                  itemCount: 4,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  itemCount: 3,
                   itemBuilder: (BuildContext context, int index){
                    if (index == 0){
                       return const OnBoardModel(
@@ -89,39 +94,44 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                           image: "assets/images/boardtwo.png"
                       );
-                    }else if(index == 2){
+                    }else{
                       return const OnBoardModel(
                           title: "Get in touch",
                           subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                           image: "assets/images/boardthree.png"
                       );
                     }
-                    return Container();
                   }),
             ),
-            const SizedBox(
-              height: 10,
-            ),
             Positioned(
-              bottom: 50,
+              bottom: size.height*.04,
+              right: 0,
+              left: 0,
               child: Column(
                 children: <Widget>[
                   Container(
-                    margin: const EdgeInsets.only(bottom: 20),
+                    margin: const EdgeInsets.all(20),
                     child: InkWell(
                         onTap: (){
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Login()));
+
+                          onChangedFunction(currentIndex + 1);
+                          setState(() {});
                         },
                         child: _onBoardingBtns(
                             "Continue",
                             AppColors.buttons,Colors.white)),
                   ),
-                  const Text(
-                      'Skip',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: AppColors.textColor,
-                      fontWeight: FontWeight.bold
+                  InkWell(
+                    onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Login()));
+                    },
+                    child: const Text(
+                        'Skip',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: AppColors.textColor,
+                        fontWeight: FontWeight.bold
+                      ),
                     ),
                   )
                 ],
