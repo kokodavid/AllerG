@@ -46,8 +46,8 @@ class _CustomEditTextState extends State<CustomEditText> {
       },
       decoration: InputDecoration(
         labelStyle: TextStyle(color: AppColors.textColor.withOpacity(0.5)),
-        labelText: widget.hintText,
         floatingLabelBehavior: FloatingLabelBehavior.auto,
+        hintText: widget.hintText,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
           borderSide: const BorderSide(

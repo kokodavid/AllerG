@@ -1,6 +1,6 @@
 import 'package:allerg/BLoC/auth/auth_cubit.dart';
 import 'package:allerg/Resources/colors.dart';
-import 'package:allerg/Screens/sign_up_screen.dart';
+import 'package:allerg/Screens/auth_pages/sign_up_screen.dart';
 import 'package:allerg/auth_service.dart';
 import 'package:allerg/constants/constants.dart';
 import 'package:allerg/constants/custom_edit_text.dart';

@@ -1,5 +1,5 @@
-import 'package:allerg/Screens/homepage.dart';
-import 'package:allerg/Screens/login_screen.dart';
+import 'package:allerg/Screens/landing_pages/homepage.dart';
+import 'package:allerg/Screens/auth_pages/login_screen.dart';
 import 'package:allerg/repository/authgroup/auth_repository.dart';
 import 'package:allerg/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

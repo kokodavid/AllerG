@@ -1,6 +1,6 @@
 import 'package:allerg/Resources/colors.dart';
-import 'package:allerg/Screens/epi_pen_page.dart';
-import 'package:allerg/Screens/profile_page.dart';
+import 'package:allerg/Screens/landing_pages/epi_pen_page.dart';
+import 'package:allerg/Screens/landing_pages/profile_page.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

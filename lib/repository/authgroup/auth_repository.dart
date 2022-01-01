@@ -47,7 +47,7 @@ class AuthRepository extends AbstractAuthRepo {
           'password': password.hashCode,
           'imageUrl': '',
           'credential': '',
-          'userType': '',
+          'userType': 'email',
           'createdOn': DateTime.now(),
         });
 

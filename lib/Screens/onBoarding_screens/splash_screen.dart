@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:allerg/Resources/colors.dart';
 import 'package:flutter/material.dart';
 
-import 'onBoarding_screens/on_boarding_screen.dart';
+import 'on_boarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

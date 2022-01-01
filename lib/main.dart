@@ -1,5 +1,5 @@
 import 'package:allerg/BLoC/auth/auth_barrel.dart';
-import 'package:allerg/Screens/splash_screen.dart';
+import 'package:allerg/Screens/onBoarding_screens/splash_screen.dart';
 import 'package:allerg/provider/auth_provider.dart';
 import 'package:allerg/repository/authgroup/auth_repository.dart';
 import 'package:allerg/services/firebase_auth.dart';

@@ -1,8 +1,8 @@
 import 'package:allerg/Resources/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:page_indicator/page_indicator.dart';
-import '../login_screen.dart';
-import '../sign_up_screen.dart';
+import '../auth_pages/login_screen.dart';
+import '../auth_pages/sign_up_screen.dart';
 import 'onboard_model_pages.dart';
 
 class OnBoardingScreen extends StatefulWidget {

@@ -47,6 +47,8 @@ dependencies:
   flutter_screenutil: ^5.0.2
   flutter_bloc: ^8.0.1
   flutter_simple_dependency_injection: ^2.0.0
+  persistent_bottom_nav_bar: ^4.0.2
+  intl_phone_field: ^2.1.0
 
 dev_dependencies:
   flutter_test:

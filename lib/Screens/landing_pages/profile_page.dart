@@ -1,4 +1,7 @@
 import 'package:allerg/Resources/colors.dart';
+import 'package:allerg/Screens/profile_screens/allergy_page.dart';
+import 'package:allerg/Screens/profile_screens/personal_data_page.dart';
+import 'package:allerg/Screens/profile_screens/settings_page.dart';
 import 'package:allerg/constants/profile_tiles.dart';
 import 'package:flutter/material.dart';
 
@@ -84,11 +87,30 @@ class _ProfilePageState extends State<ProfilePage> {
             padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 18),
             child: Column(
               children: [
-                ProfileTiles(icon: Icons.person, title: "Personal Data"),
+                InkWell(
+                    onTap:(){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const PersonalData()));
+                    },
+                    child: ProfileTiles
+                      (icon: Icons.person, title: "Personal Data")
+                ),
                 SizedBox(height: 12,),
-                ProfileTiles(icon: Icons.info, title: "Allergy Information"),
+                InkWell(
+                    onTap:(){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AllergyInformation()));
+                    },
+                    child: ProfileTiles(
+                        icon: Icons.info, title: "Allergy Information")
+                ),
                 SizedBox(height: 12,),
-                ProfileTiles(icon: Icons.settings, title: "Settings")
+                InkWell(
+                    onTap:(){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Settings()));
+                    },
+                    child: ProfileTiles(
+                        icon: Icons.settings, title: "Settings"
+                    )
+                )
               ],
             ),
           ),
