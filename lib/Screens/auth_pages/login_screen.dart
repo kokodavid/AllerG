@@ -1,5 +1,6 @@
 import 'package:allerg/BLoC/auth/auth_cubit.dart';
 import 'package:allerg/Resources/colors.dart';
+import 'package:allerg/Screens/auth_pages/forgot_password.dart';
 import 'package:allerg/Screens/auth_pages/sign_up_screen.dart';
 import 'package:allerg/auth_service.dart';
 import 'package:allerg/constants/constants.dart';
@@ -115,15 +116,20 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                         ),
-                        const Align(
-                          alignment: Alignment.topLeft,
-                            child: Text(
-                                "Forgot Password ?",
-                              style: TextStyle(
-                                color: AppColors.textColor,
-                                fontWeight: FontWeight.bold
-                              ),
-                            )),
+                         InkWell(
+                          onTap:(){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ForgotPassword()));
+                          },
+                          child: const Align(
+                            alignment: Alignment.topLeft,
+                              child: Text(
+                                  "Forgot Password ?",
+                                style: TextStyle(
+                                  color: AppColors.textColor,
+                                  fontWeight: FontWeight.bold
+                                ),
+                              )),
+                        ),
                         const Padding(
                           padding: EdgeInsets.all(18),
                             child: Text(

@@ -188,26 +188,26 @@ class _SignUpState extends State<SignUp> {
                                       fontWeight: FontWeight.bold),
                                 )
                               ]))
-                              /*Row(
-                                children:  [
-                                  const Text(
-                                      "Don't have an account ?"
-                                  ),
-                                  const SizedBox(width: 10,),
-                                  GestureDetector(
-                                    onTap: (){
-                                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SignUp()));
-                                    },
-                                    child: const Text(
-                                        "Sign Up.",
-                                      style: TextStyle(
-                                        color: AppColors.textColor,
-                                        fontWeight: FontWeight.bold
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),*/
+                              // /*Row(
+                              //   children:  [
+                              //     const Text(
+                              //         "Don't have an account ?"
+                              //     ),
+                              //     const SizedBox(width: 10,),
+                              //     GestureDetector(
+                              //       onTap: (){
+                              //         Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SignUp()));
+                              //       },
+                              //       child: const Text(
+                              //           "Sign Up.",
+                              //         style: TextStyle(
+                              //           color: AppColors.textColor,
+                              //           fontWeight: FontWeight.bold
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),*/
                               ),
                         )
                       ],

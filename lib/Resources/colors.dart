@@ -12,6 +12,7 @@ class AppColors {
   static const dimColor = Color(0xffB7C1DF);
   static const floatButton = Color(0xffFF5963);
   static const profileTile = Color(0xffEDF3FE);
+  static const background = Color(0xffB7C1DF);
 
 
 }

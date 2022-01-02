@@ -1,5 +1,8 @@
 import 'package:allerg/Resources/colors.dart';
+import 'package:allerg/Screens/profile_screens/settings_pages/language_page.dart';
+import 'package:allerg/Screens/profile_screens/settings_pages/location_page.dart';
 import 'package:allerg/Screens/profile_screens/settings_pages/login_information.dart';
+import 'package:allerg/Screens/profile_screens/settings_pages/notifications_page.dart';
 import 'package:allerg/constants/profile_tiles.dart';
 import 'package:flutter/material.dart';
 
@@ -61,14 +64,29 @@ class _SettingsState extends State<Settings> {
                         (icon: Icons.email_rounded, title: "Login Information"),
                     ),
                     SizedBox(height: 12,),
-                    ProfileTiles
-                      (icon: Icons.translate, title: "Language"),
+                    InkWell(
+                      onTap:(){
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LanguagePage()));
+                      },
+                      child: ProfileTiles
+                        (icon: Icons.translate, title: "Language"),
+                    ),
                     SizedBox(height: 12,),
-                    ProfileTiles
-                      (icon: Icons.notifications, title: "Notifications"),
+                    InkWell(
+                      onTap:(){
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const NotificationPage()));
+                      },
+                      child: ProfileTiles
+                        (icon: Icons.notifications, title: "Notifications"),
+                    ),
                     SizedBox(height: 12,),
-                    ProfileTiles
-                      (icon: Icons.share_location, title: "Location"),
+                    InkWell(
+                      onTap:(){
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LocationSetting()));
+                      },
+                      child: ProfileTiles
+                        (icon: Icons.share_location, title: "Location"),
+                    ),
                     SizedBox(height: 12,),
                     ProfileTiles
                       (icon: Icons.lightbulb, title: "Help"),

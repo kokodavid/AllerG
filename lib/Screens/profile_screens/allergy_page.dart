@@ -1,6 +1,10 @@
+import 'package:allerg/Helpers/allergy_list.dart';
 import 'package:allerg/Resources/colors.dart';
 import 'package:allerg/constants/custom_edit_text.dart';
+import 'package:allerg/models/allergy_list_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 
 class AllergyInformation extends StatefulWidget {
   const AllergyInformation({Key? key}) : super(key: key);
@@ -10,6 +14,8 @@ class AllergyInformation extends StatefulWidget {
 }
 
 class _AllergyInformationState extends State<AllergyInformation> {
+  List<AllergyItem> allergyTypes = AllergyList.getMockedAllergies();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -81,12 +87,45 @@ class _AllergyInformationState extends State<AllergyInformation> {
                             )
                         )
                     ),
-                    Container(
-                      height: 50,
-                      decoration: const BoxDecoration(
-                        color: AppColors.lightText
-                      ),
+
+                    GridView.builder(
+                      padding: const EdgeInsets.all(8.0),
+                      itemCount: allergyTypes.length,
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount:(MediaQuery.of(context).orientation == Orientation.portrait)? 3: 1,),
+                      itemBuilder: (BuildContext context,int index){
+                        return Container(
+                          padding: EdgeInsets.symmetric(horizontal: 8,vertical: 10),
+                          child: Container(
+                            decoration:  BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                border: Border.all(color: AppColors.lightText),
+                                color: Colors.white
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  child: Image.asset(
+                                      allergyTypes[index].icon,
+                                    height: 25,
+                                    width: 35,
+                                  ),
+                                ),
+                                Text(
+                                  allergyTypes[index].name,
+                                  style: const TextStyle(
+                                      fontSize: 17,
+                                      color: AppColors.textColor
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        );
+                      },
                     ),
+
                     Container(
                         margin: EdgeInsets.only(bottom: 10),
                         alignment: Alignment.topLeft,
@@ -136,9 +175,10 @@ class _AllergyInformationState extends State<AllergyInformation> {
                       ),
                     ),
                     Container(
-                        margin: EdgeInsets.only(bottom: 10),
+                        margin: EdgeInsets.only(bottom: 10,left: 10),
                         alignment: Alignment.topLeft,
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: const [
                             Text.rich(
                                 TextSpan(
@@ -158,6 +198,12 @@ class _AllergyInformationState extends State<AllergyInformation> {
                                       )
                                     ]
                                 )
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15.0),
+                              child: AdvancedSwitch(
+                                activeColor: Colors.lightGreenAccent,
+                              ),
                             ),
 
                           ],
