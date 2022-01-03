@@ -1,9 +1,8 @@
 import 'package:allerg/Resources/colors.dart';
 import 'package:allerg/Screens/landing_pages/homepage.dart';
-import 'package:allerg/constants/constants.dart';
 import 'package:allerg/constants/custom_edit_text.dart';
-import 'package:allerg/repository/authgroup/auth_repository.dart';
-import 'package:allerg/services/firebase_auth.dart';
+import 'package:allerg/models/users.dart';
+import 'package:allerg/viewmodel/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,14 +17,25 @@ class _SignUpState extends State<SignUp> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  late AuthViewModel _authViewModel;
 
-  TextEditingController? emailController = TextEditingController();
-  TextEditingController? passwordController = TextEditingController();
-  TextEditingController? usernameController = TextEditingController();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+  var confirmPasswordController = TextEditingController();
+  var usernameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.microtask(() => (context).read<AuthViewModel>().getUserLocation());
+    Future.microtask(() => (context).read<AuthViewModel>().getUserIpAddress());
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    _authViewModel = context.watch<AuthViewModel>();
     return Container(
       decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -100,6 +110,7 @@ class _SignUpState extends State<SignUp> {
                             obscurity: false,
                             controller: emailController,
                             icon: Icon(Icons.mail),
+                            errorText: 'invalid email',
                           ),
                         ),
                         Container(
@@ -118,6 +129,7 @@ class _SignUpState extends State<SignUp> {
                             controller: passwordController,
                             obscurity: true,
                             icon: Icon(Icons.visibility_off),
+                            errorText: 'Invalid password',
                           ),
                         ),
                         Container(
@@ -125,23 +137,37 @@ class _SignUpState extends State<SignUp> {
                           child: CustomEditText(
                             hintText: "Repeat Password",
                             obscurity: true,
+                            controller: confirmPasswordController,
                             icon: Icon(Icons.visibility_off),
+                            errorText: 'Invalid password',
                           ),
                         ),
                         InkWell(
                           onTap: () async {
-                            // if (_formKey.currentState!.validate()) {
-                            //   await _authRepository.signUp(
-                            //       emailController?.text,
-                            //       passwordController?.text,
-                            //       usernameController?.text,
-                            //       "userType",
-                            //       "imageUrl",
-                            //       "credential",
-                            //       "uid");
-                            // }
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const Homepage()));
+                            if (_formKey.currentState!.validate()) {
+                              Users userInfo = Users(
+                                  username: usernameController.text,
+                                  password: passwordController.text,
+                                  emailAddress: emailController.text,
+                                  allergyType: '',
+                                  picture: '',
+                                  hasEpipen: 'false',
+                                  ipAddress: _authViewModel.userIpAddress,
+                                  location: _authViewModel.userLocation,
+                                  createdOn: "${DateTime.now()}",
+                                  updatedOn: "${DateTime.now()}");
+
+                              var response =
+                                  await _authViewModel.singUpNewUser(userInfo);
+
+                              if (response) {
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Homepage()),
+                                    (route) => false);
+                              }
+                            }
                           },
                           child: Container(
                             margin: const EdgeInsets.only(top: 15),
@@ -173,7 +199,7 @@ class _SignUpState extends State<SignUp> {
                                 builder: (context) => const SignUp()));
                           },
                           child: Container(
-                              margin: EdgeInsets.symmetric(vertical: 25),
+                              margin: const EdgeInsets.symmetric(vertical: 25),
                               child: const Text.rich(TextSpan(children: [
                                 TextSpan(
                                   text: 'Already have an account\t',
