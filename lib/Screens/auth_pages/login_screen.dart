@@ -3,9 +3,9 @@ import 'package:allerg/Screens/auth_pages/forgot_password.dart';
 import 'package:allerg/Screens/auth_pages/sign_up_screen.dart';
 import 'package:allerg/Screens/landing_pages/homepage.dart';
 import 'package:allerg/constants/custom_edit_text.dart';
-import 'package:allerg/viewmodel/auth_service.dart';
 import 'package:allerg/viewmodel/auth_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
@@ -157,13 +157,25 @@ class _LoginState extends State<Login> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
-                            onTap: () {
-                              _authViewModel.signInWithGoogle();
+                            onTap: () async {
+                              var res = await _authViewModel.logInWithGoogle();
+
+                              if (!res) {
+                                EasyLoading.showToast(
+                                    'Not a valid account',
+                                    maskType: EasyLoadingMaskType.black);
+                              } else {
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Homepage()),
+                                    (route) => false);
+                              }
                             },
                             child: Image.asset("assets/images/google.png")),
                         GestureDetector(
                             onTap: () {
-                             _authViewModel.signInWithFacebook();
+                              _authViewModel.signInWithFacebook();
                             },
                             child: Image.asset("assets/images/facebook.png")),
                         Image.asset("assets/images/apple.png"),
@@ -189,9 +201,7 @@ class _LoginState extends State<Login> {
                                   color: AppColors.textColor,
                                   fontWeight: FontWeight.bold),
                             )
-                          ]))
-
-                          ),
+                          ]))),
                     )
                   ],
                 ),

@@ -1,15 +1,10 @@
 import 'dart:io';
 
 import 'package:allerg/Resources/colors.dart';
-import 'package:allerg/constants/border_edit_text.dart';
 import 'package:allerg/constants/custom_edit_text.dart';
-
 import 'package:allerg/models/users.dart';
 import 'package:allerg/services/convert_time.dart';
 import 'package:allerg/viewmodel/auth_view_model.dart';
-
-import 'package:country_code_picker/country_code_picker.dart';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -24,12 +19,9 @@ class PersonalData extends StatefulWidget {
 }
 
 class _PersonalDataState extends State<PersonalData> {
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   late AuthViewModel _authViewModel;
-
-  String _dropDownValue = 'Gender';
 
   String initialCountry = 'NG';
   var fNamecontroller = TextEditingController();
@@ -42,7 +34,6 @@ class _PersonalDataState extends State<PersonalData> {
   var ageController = TextEditingController();
   var addressController = TextEditingController();
   String profilePictureUrl = "";
-
 
   PickedFile? selectedImage;
 
@@ -57,7 +48,7 @@ class _PersonalDataState extends State<PersonalData> {
   editableText() {
     fNamecontroller.text = widget.users!.firstName ?? "";
     lNamecontroller.text = widget.users!.lastName ?? "";
-    addressController.text = widget.users!.location!;
+    addressController.text = widget.users!.location ?? "";
     phoneController.text = widget.users!.phoneNumber ?? "";
     sosPhoneController.text = widget.users!.sosPhoneNumber ?? "";
     nameController.text = widget.users!.sosContact ?? "";
@@ -87,12 +78,6 @@ class _PersonalDataState extends State<PersonalData> {
 
     selectedImage = image;
     setState(() {});
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
   }
 
   @override
@@ -124,10 +109,10 @@ class _PersonalDataState extends State<PersonalData> {
                             child: const Icon(Icons.arrow_back_ios)),
                         const Center(
                             child: Text(
-                          "Personal Data",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18),
-                        )),
+                              "Personal Data",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18),
+                            )),
                         InkWell(
                           onTap: ()async{
                             var res = await _authViewModel.uploadProfilePicture(selectedImage!.path, );
@@ -155,25 +140,24 @@ class _PersonalDataState extends State<PersonalData> {
                 },
                 child: Container(
                   margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 29),
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 29),
                   height: size.height * .11,
                   width: size.width * .25,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                       image: (widget.users!.picture!.isNotEmpty)
                           ? DecorationImage(
-                              image: NetworkImage(widget.users!.picture!))
+                          image: NetworkImage(widget.users!.picture!))
                           : (selectedImage == null)
-                              ? const DecorationImage(
-                                  image: AssetImage(
-                                    'assets/images/boardone.png',
-                                  ),
-                                  fit: BoxFit.cover)
-                              : DecorationImage(
-                                  image: FileImage(File(selectedImage!.path)))),
+                          ? const DecorationImage(
+                          image: AssetImage(
+                            'assets/images/boardone.png',
+                          ),
+                          fit: BoxFit.cover)
+                          : DecorationImage(
+                          image: FileImage(File(selectedImage!.path)))),
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Form(
@@ -185,48 +169,15 @@ class _PersonalDataState extends State<PersonalData> {
                           alignment: Alignment.topLeft,
                           child: const Text.rich(TextSpan(children: [
                             TextSpan(
-
                               text: 'Your First Name',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                                children: [
-                                  TextSpan(
-                                    text: 'Your First Name',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: '*',
-                                    style: TextStyle(
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold
-                                    ),
-                                  )
-                                ]
-                            )
-                        )
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 20),
-                      child: BorderEditText(
-                        hintText: "First Name",
-                        obscurity: false,
-                        icon: Icon(Icons.portrait),
-                      ),
-                    ),
-                    Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        alignment: Alignment.topLeft,
-                        child: const Text.rich(
-
                             TextSpan(
                               text: '*',
                               style: TextStyle(
                                   color: Colors.red,
                                   fontWeight: FontWeight.bold),
                             )
-
                           ]))),
                       Container(
                         margin: const EdgeInsets.only(bottom: 20),
@@ -236,16 +187,6 @@ class _PersonalDataState extends State<PersonalData> {
                           controller: fNamecontroller,
                           icon: const Icon(Icons.portrait),
                         ),
-
-                        )
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 20),
-                      child: BorderEditText(
-                        hintText: "Last Name",
-                        obscurity: false,
-                        icon: Icon(Icons.portrait),
-
                       ),
                       Container(
                           margin: const EdgeInsets.only(bottom: 10),
@@ -261,7 +202,6 @@ class _PersonalDataState extends State<PersonalData> {
                                   color: Colors.red,
                                   fontWeight: FontWeight.bold),
                             )
-
                           ]))),
                       Container(
                         margin: EdgeInsets.only(bottom: 20),
@@ -276,57 +216,6 @@ class _PersonalDataState extends State<PersonalData> {
                           margin: EdgeInsets.only(bottom: 10),
                           alignment: Alignment.topLeft,
                           child: const Text.rich(TextSpan(children: [
-
-                        )
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 10),
-                      height: 60,
-                      decoration:  BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          border: Border.all(color: AppColors.lightText),
-                          color: Colors.white
-                      ),
-                      child: IntrinsicHeight(
-                        child: Row(
-                          children: [
-                          CountryCodePicker(
-                          onChanged: print,
-                          // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                          initialSelection: 'KE',
-                          favorite: ['+39','FR'],
-                          // optional. Shows only country name and flag
-                          showCountryOnly: false,
-                          // optional. Shows only country name and flag when popup is closed.
-                          showOnlyCountryWhenClosed: false,
-                          // optional. aligns the flag and the Text left
-                          alignLeft: false,
-                        ),
-                            Container(width: 1, color: AppColors.lightText),
-                            Expanded(
-                                child:TextFormField(
-                                  maxLines: 1,
-                                  decoration: const InputDecoration(
-                                      border: InputBorder.none,
-                                      focusedBorder: InputBorder.none,
-                                      enabledBorder: InputBorder.none,
-                                      errorBorder: InputBorder.none,
-                                      disabledBorder: InputBorder.none,
-                                      contentPadding:
-                                      EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
-                                      hintText: "Phone Number"),
-                                ),
-                            )// This is divider
-
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        alignment: Alignment.topLeft,
-                        child: const Text.rich(
-
                             TextSpan(
                               text: 'Phone Number',
                               style: TextStyle(fontWeight: FontWeight.bold),
@@ -337,7 +226,6 @@ class _PersonalDataState extends State<PersonalData> {
                                   color: Colors.red,
                                   fontWeight: FontWeight.bold),
                             )
-
                           ]))),
                       IntlPhoneField(
                         controller: phoneController,
@@ -346,50 +234,6 @@ class _PersonalDataState extends State<PersonalData> {
                           border: OutlineInputBorder(
                             borderSide: BorderSide(),
                           ),
-
-                        )
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 10),
-                      height: 60,
-                      decoration:  BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          border: Border.all(color: AppColors.lightText),
-                          color: Colors.white
-                      ),
-                      child: IntrinsicHeight(
-                        child: Row(
-                          children: [
-                            CountryCodePicker(
-                              onChanged: print,
-                              // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                              initialSelection: 'KE',
-                              favorite: ['+39','FR'],
-                              // optional. Shows only country name and flag
-                              showCountryOnly: false,
-                              // optional. Shows only country name and flag when popup is closed.
-                              showOnlyCountryWhenClosed: false,
-                              // optional. aligns the flag and the Text left
-                              alignLeft: false,
-                            ),
-                            Container(width: 1, color: AppColors.lightText),
-                            Expanded(
-                              child:TextFormField(
-                                maxLines: 1,
-                                decoration: const InputDecoration(
-                                    border: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none,
-                                    errorBorder: InputBorder.none,
-                                    disabledBorder: InputBorder.none,
-                                    contentPadding:
-                                    EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
-                                    hintText: "Phone Number"),
-                              ),
-                            )// This is divider
-
-                          ],
-
                         ),
                         onChanged: (phone) {
                           // phoneController.text = phone.toString();
@@ -398,7 +242,6 @@ class _PersonalDataState extends State<PersonalData> {
                           // print('Country code changed to: ' + phone.countryCode);
                         },
                       ),
-
                       Container(
                           margin: EdgeInsets.only(bottom: 10),
                           alignment: Alignment.topLeft,
@@ -422,38 +265,12 @@ class _PersonalDataState extends State<PersonalData> {
                         onCountryChanged: (phone) {
                           // print('Country code changed to: ' + phone.countryCode);
                         },
-
-                    ),
-                    Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        alignment: Alignment.topLeft,
-                        child: const Text.rich(
-                            TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: 'Contact Name',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold
-                                    ),
-                                  ),
-                                ]
-                            )
-                        )
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 20),
-                      child: BorderEditText(
-                        hintText: "Contact Name",
-                        obscurity: false,
-                        icon: Icon(Icons.portrait),
-
                       ),
                       Container(
                           margin: EdgeInsets.only(bottom: 10),
                           alignment: Alignment.topLeft,
                           child: const Text.rich(TextSpan(children: [
                             TextSpan(
-
                               text: 'Contact Name',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -471,69 +288,6 @@ class _PersonalDataState extends State<PersonalData> {
                           margin: EdgeInsets.only(bottom: 10),
                           alignment: Alignment.topLeft,
                           child: const Text.rich(TextSpan(children: [
-
-                                children: [
-                                  TextSpan(
-                                    text: 'Gender',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: '*',
-                                    style: TextStyle(
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold
-                                    ),
-                                  )
-                                ]
-                            )
-                        )
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                        decoration:  BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            border: Border.all(color: AppColors.lightText),
-                            color: Colors.white
-                        ),
-                      margin: EdgeInsets.only(bottom: 20),
-                      child:Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 5),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                            hint: _dropDownValue == null
-                                ? Text('Gender')
-                                : Text(
-                              _dropDownValue,
-                              style: TextStyle(color: Colors.black),
-                            ),
-                            isExpanded: true,
-                            iconSize: 30.0,
-                            style: TextStyle(color: Colors.black),
-                            items: ['Male', 'Female'].map(
-                                  (val) {
-                                return DropdownMenuItem<String>(
-                                  value: val,
-                                  child: Text(val),
-                                );
-                              },
-                            ).toList(),
-                            onChanged: (val) {
-                              setState(
-                                    () {
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      )
-                    ),
-                    Container(
-                        margin: EdgeInsets.only(bottom: 10),
-                        alignment: Alignment.topLeft,
-                        child: const Text.rich(
-
                             TextSpan(
                               text: 'Gender',
                               style: TextStyle(fontWeight: FontWeight.bold),
@@ -544,7 +298,6 @@ class _PersonalDataState extends State<PersonalData> {
                                   color: Colors.red,
                                   fontWeight: FontWeight.bold),
                             )
-
                           ]))),
                       Container(
                         margin: EdgeInsets.only(bottom: 20),
@@ -554,22 +307,12 @@ class _PersonalDataState extends State<PersonalData> {
                           obscurity: false,
                           icon: Icon(Icons.portrait),
                         ),
-                        )
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 20),
-                      child: BorderEditText(
-                        hintText: "DOB",
-                        obscurity: false,
-                        icon: Icon(Icons.calendar_today),
-
                       ),
                       Container(
                           margin: EdgeInsets.only(bottom: 10),
                           alignment: Alignment.topLeft,
                           child: const Text.rich(TextSpan(children: [
                             TextSpan(
-
                               text: 'Date of Birth',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -600,32 +343,12 @@ class _PersonalDataState extends State<PersonalData> {
                             ),
                           ),
                         ),
-
-                                children: [
-                                  TextSpan(
-                                    text: 'Age',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold
-                                    ),
-                                  ),
-                                ]
-                            )
-                        )
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 20),
-                      child: BorderEditText(
-                        hintText: "Gender",
-                        obscurity: false,
-                        icon: Icon(Icons.hourglass_empty),
-
                       ),
                       Container(
                           margin: EdgeInsets.only(bottom: 10),
                           alignment: Alignment.topLeft,
                           child: const Text.rich(TextSpan(children: [
                             TextSpan(
-
                               text: 'Age',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -638,25 +361,6 @@ class _PersonalDataState extends State<PersonalData> {
                           controller: ageController,
                           icon: Icon(Icons.portrait),
                         ),
-
-                                children: [
-                                  TextSpan(
-                                    text: 'Address',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold
-                                    ),
-                                  ),
-                                ]
-                            )
-                        )
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 20),
-                      child: BorderEditText(
-                        hintText: "Gender",
-                        obscurity: false,
-                        icon: Icon(Icons.place),
-
                       ),
                       Container(
                           margin: EdgeInsets.only(bottom: 10),
@@ -699,7 +403,7 @@ class _PersonalDataState extends State<PersonalData> {
                               updatedOn: "${DateTime.now()}");
 
                           var response =
-                              await _authViewModel.updateUserInfo(userInfo);
+                          await _authViewModel.updateUserInfo(userInfo);
 
                           if (response) {
                             setState(() {});

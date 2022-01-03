@@ -4,6 +4,7 @@ import 'package:allerg/constants/custom_edit_text.dart';
 import 'package:allerg/models/users.dart';
 import 'package:allerg/viewmodel/auth_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
@@ -91,8 +92,41 @@ class _SignUpState extends State<SignUp> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Image.asset("assets/images/google.png"),
-                            Image.asset("assets/images/facebook.png"),
+                            InkWell(
+                                onTap: () async {
+                                  var res =
+                                      await _authViewModel.signInWithGoogle();
+
+                                  if (res) {
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Homepage()),
+                                        (route) => false);
+                                  } else {
+                                    EasyLoading.show(
+                                        status: 'Not a valid account',
+                                        maskType: EasyLoadingMaskType.black);
+                                  }
+                                },
+                                child: Image.asset("assets/images/google.png")),
+                            InkWell(
+                                onTap: () async {
+                                  var res = await _authViewModel.signInWithFacebook();
+
+                                  if (res) {
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Homepage()),
+                                            (route) => false);
+                                  } else {
+                                    EasyLoading.show(
+                                        status: 'Not a valid account',
+                                        maskType: EasyLoadingMaskType.black);
+                                  }
+                                },
+                                child: Image.asset("assets/images/facebook.png")),
                             Image.asset("assets/images/apple.png"),
                           ],
                         ),
@@ -213,28 +247,7 @@ class _SignUpState extends State<SignUp> {
                                       color: AppColors.textColor,
                                       fontWeight: FontWeight.bold),
                                 )
-                              ]))
-                              // /*Row(
-                              //   children:  [
-                              //     const Text(
-                              //         "Don't have an account ?"
-                              //     ),
-                              //     const SizedBox(width: 10,),
-                              //     GestureDetector(
-                              //       onTap: (){
-                              //         Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SignUp()));
-                              //       },
-                              //       child: const Text(
-                              //           "Sign Up.",
-                              //         style: TextStyle(
-                              //           color: AppColors.textColor,
-                              //           fontWeight: FontWeight.bold
-                              //         ),
-                              //       ),
-                              //     ),
-                              //   ],
-                              // ),*/
-                              ),
+                              ]))),
                         )
                       ],
                     ),
