@@ -1,6 +1,8 @@
 import 'package:allerg/Resources/colors.dart';
 import 'package:allerg/constants/custom_edit_text.dart';
+import 'package:allerg/viewmodel/auth_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginInformation extends StatefulWidget {
   const LoginInformation({Key? key}) : super(key: key);
@@ -10,9 +12,20 @@ class LoginInformation extends StatefulWidget {
 }
 
 class _LoginInformationState extends State<LoginInformation> {
+  late AuthViewModel _authViewModel;
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.microtask(() => context.read<AuthViewModel>().getUserProfile());
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    _authViewModel = context.watch<AuthViewModel>();
+
     return  Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(

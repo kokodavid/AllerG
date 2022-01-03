@@ -50,7 +50,18 @@ dependencies:
   persistent_bottom_nav_bar: ^4.0.2
   intl_phone_field: ^2.1.0
   flutter_advanced_switch: ^3.0.0
+
+  geolocator: ^8.0.1
+  geocoding: ^2.0.1
+  wifi_info_flutter: ^2.0.2
+  flutter_easyloading: ^3.0.3
+  image_picker: ^0.8.4+4
+  shared_preferences: ^2.0.11
+  intl: ^0.17.0
+  firebase_storage: ^10.2.4
+
   country_code_picker: ^2.0.2
+
 
 dev_dependencies:
   flutter_test:

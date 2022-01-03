@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'Screens/landing_pages/homepage.dart';
+import '../Screens/landing_pages/homepage.dart';
 
 
 class AuthService {
@@ -78,9 +78,6 @@ class AuthService {
       // Once signed in, return the UserCredential
       return await FirebaseAuth.instance.signInWithCredential(credential);
     }
-
-  //
-
 //Sign out
   signOut() {
     FirebaseAuth.instance.signOut();

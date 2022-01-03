@@ -1,19 +1,35 @@
-import 'package:allerg/BLoC/auth/auth_barrel.dart';
 import 'package:allerg/Screens/onBoarding_screens/splash_screen.dart';
-import 'package:allerg/provider/auth_provider.dart';
 import 'package:allerg/repository/authgroup/auth_repository.dart';
-import 'package:allerg/services/firebase_auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:allerg/viewmodel/auth_view_model.dart';
+import 'package:allerg/viewmodel/base_view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
+
+import 'Resources/colors.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
+  configLoading();
+}
+
+void configLoading() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+    ..loadingStyle = EasyLoadingStyle.dark
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..progressColor = AppColors.profileTile
+    ..backgroundColor = AppColors.background
+    ..indicatorColor = AppColors.profileTile
+    ..textColor = Colors.white
+    ..maskColor = AppColors.primary
+    ..userInteractions = true
+    ..dismissOnTap = false;
 }
 
 class MyApp extends StatefulWidget {
@@ -25,14 +41,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final AuthRepository _authRepository = AuthRepository();
-  late AuthBloc _authBloc;
 
   @override
   void initState() {
     super.initState();
-
-    _authBloc = AuthBloc(authRepository: _authRepository);
-    // _authBloc.dispatch(AppStart());
   }
 
   @override
@@ -42,17 +54,19 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<AuthBloc>(
-          create: (_) => AuthBloc(authRepository: _authRepository),
-        ),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(fontFamily: 'SFpro'),
-        home: const SplashScreen(),
-      ),
-    );
+    return Provider(
+        create: (BuildContext context) {},
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => BaseViewModel()),
+            ChangeNotifierProvider(create: (_) => AuthViewModel())
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(fontFamily: 'SFpro'),
+            home: const SplashScreen(),
+            builder: EasyLoading.init(),
+          ),
+        ));
   }
 }
